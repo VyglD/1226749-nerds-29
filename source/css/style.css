@@ -460,41 +460,44 @@ input[type="radio"].visually-hidden {
 }
 
 .principles__slide::before {
+  content: "";
+
   position: absolute;
   right: 23px;
   bottom: 0;
 
-  max-width: 760px;
-  max-height: 431px;
+  display: block;
+  width: 760px;
+  height: 431px;
 
-  line-height: 0;
-
-  overflow: hidden;
+  background-color: var(--transparent);
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .principles__slide--slide-1::before {
-  content: url("../img/nerds-index-slide-1@1x.webp");
+  background-image: url("../img/nerds-index-slide-1@1x.webp");
 }
 
 .principles__slide--slide-2::before {
-  content: url("../img/nerds-index-slide-2@1x.webp");
+  background-image: url("../img/nerds-index-slide-2@1x.webp");
 }
 
 .principles__slide--slide-3::before {
-  content: url("../img/nerds-index-slide-3@1x.webp");
+  background-image: url("../img/nerds-index-slide-3@1x.webp");
 }
 
 @media (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
   .principles__slide--slide-1::before {
-    content: url("../img/nerds-index-slide-1@2x.webp");
+    background-image: url("../img/nerds-index-slide-1@2x.webp");
   }
 
   .principles__slide--slide-2::before {
-    content: url("../img/nerds-index-slide-2@2x.webp");
+    background-image: url("../img/nerds-index-slide-2@2x.webp");
   }
 
   .principles__slide--slide-3::before {
-    content: url("../img/nerds-index-slide-3@2x.webp");
+    background-image: url("../img/nerds-index-slide-3@2x.webp");
   }
 }
 
@@ -569,36 +572,40 @@ input[type="radio"].visually-hidden {
 }
 
 .services__list-item::before {
+  content: "";
+
   display: block;
   width: 300px;
   height: 146px;
 
-  overflow: hidden;
+  background-color: var(--light-gray-1);
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .services__list-item--service-1::before {
-  content: url("../img/services-item-1@1x.webp");
+  background-image: url("../img/services-item-1@1x.webp");
 }
 
 .services__list-item--service-2::before {
-  content: url("../img/services-item-2@1x.webp");
+  background-image: url("../img/services-item-2@1x.webp");
 }
 
 .services__list-item--service-3::before {
-  content: url("../img/services-item-3@1x.webp");
+  background-image: url("../img/services-item-3@1x.webp");
 }
 
 @media (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
   .services__list-item--service-1::before {
-    content: url("../img/services-item-1@2x.webp");
+    background-image: url("../img/services-item-1@2x.webp");
   }
 
   .services__list-item--service-2::before {
-    content: url("../img/services-item-2@2x.webp");
+    background-image: url("../img/services-item-2@2x.webp");
   }
 
   .services__list-item--service-3::before {
-    content: url("../img/services-item-3@2x.webp");
+    background-image: url("../img/services-item-3@2x.webp");
   }
 }
 
@@ -711,21 +718,22 @@ input[type="radio"].visually-hidden {
 }
 
 .about__right-column-wrapper::before {
-  content: url("../img/nerds-illustration@1x.webp");
+  content: "";
 
   display: block;
-  max-width: 360px;
-  max-height: 208px;
+  width: 360px;
+  height: 208px;
   margin-top: 9px;
 
-  line-height: 0;
-
-  overflow: hidden;
+  background-color: var(--light-gray-1);
+  background-image: url("../img/nerds-illustration@1x.webp");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 @media (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
   .about__right-column-wrapper::before {
-    content: url("../img/nerds-illustration@2x.webp");
+    background-image: url("../img/nerds-illustration@2x.webp");
   }
 }
 
@@ -925,7 +933,7 @@ input[type="radio"].visually-hidden {
 }
 
 .placement__img-map-wrapper::after {
-  content: url("../img/map-marker@1x.webp");
+  content: "";
 
   position: absolute;
   top: 0;
@@ -935,14 +943,17 @@ input[type="radio"].visually-hidden {
   width: 231px;
   height: 190px;
 
-  overflow: hidden;
+  background-color: var(--transparent);
+  background-image: url("../img/map-marker@1x.webp");
+  background-repeat: no-repeat;
+  background-size: contain;
 
   transform: translate(102px, 86px);
 }
 
 @media (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
   .placement__img-map-wrapper::after {
-    content: url("../img/map-marker@2x.webp");
+    background-image: url("../img/map-marker@2x.webp");
   }
 }
 
@@ -1480,6 +1491,7 @@ templates
   min-width: 25px;
   margin-right: 12px;
 
+  background-color: var(--light-gray-1);
   background-image: url("../img/checkbox-on.svg");
   border: none;
 }
