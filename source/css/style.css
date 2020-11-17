@@ -37,7 +37,7 @@
   --yellow-3: #E5A722;
   --transparent: transparent;
 
-  /* body variables */
+  /* common variables */
 
   --main-width: 1200px;
   --main-padding: 20px;
@@ -473,15 +473,29 @@ input[type="radio"].visually-hidden {
 }
 
 .principles__slide--slide-1::before {
-  content: url("../img/nerds-index-slide-1.png");
+  content: url("../img/nerds-index-slide-1@1x.webp");
 }
 
 .principles__slide--slide-2::before {
-  content: url("../img/nerds-index-slide-2.png");
+  content: url("../img/nerds-index-slide-2@1x.webp");
 }
 
 .principles__slide--slide-3::before {
-  content: url("../img/nerds-index-slide-3.png");
+  content: url("../img/nerds-index-slide-3@1x.webp");
+}
+
+@media (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+  .principles__slide--slide-1::before {
+    content: url("../img/nerds-index-slide-1@2x.webp");
+  }
+
+  .principles__slide--slide-2::before {
+    content: url("../img/nerds-index-slide-2@2x.webp");
+  }
+
+  .principles__slide--slide-3::before {
+    content: url("../img/nerds-index-slide-3@2x.webp");
+  }
 }
 
 .principles__slide--active {
@@ -563,15 +577,29 @@ input[type="radio"].visually-hidden {
 }
 
 .services__list-item--service-1::before {
-  content: url("../img/services-item-1.png");
+  content: url("../img/services-item-1@1x.webp");
 }
 
 .services__list-item--service-2::before {
-  content: url("../img/services-item-2.png");
+  content: url("../img/services-item-2@1x.webp");
 }
 
 .services__list-item--service-3::before {
-  content: url("../img/services-item-3.png");
+  content: url("../img/services-item-3@1x.webp");
+}
+
+@media (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+  .services__list-item--service-1::before {
+    content: url("../img/services-item-1@2x.webp");
+  }
+
+  .services__list-item--service-2::before {
+    content: url("../img/services-item-2@2x.webp");
+  }
+
+  .services__list-item--service-3::before {
+    content: url("../img/services-item-3@2x.webp");
+  }
 }
 
 .services__service-title {
@@ -683,7 +711,7 @@ input[type="radio"].visually-hidden {
 }
 
 .about__right-column-wrapper::before {
-  content: url("../img/nerds-illustration.png");
+  content: url("../img/nerds-illustration@1x.webp");
 
   display: block;
   max-width: 360px;
@@ -693,6 +721,12 @@ input[type="radio"].visually-hidden {
   line-height: 0;
 
   overflow: hidden;
+}
+
+@media (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+  .about__right-column-wrapper::before {
+    content: url("../img/nerds-illustration@2x.webp");
+  }
 }
 
 .about__properties-title {
@@ -891,7 +925,7 @@ input[type="radio"].visually-hidden {
 }
 
 .placement__img-map-wrapper::after {
-  content: url("../img/map-marker.png");
+  content: url("../img/map-marker@1x.webp");
 
   position: absolute;
   top: 0;
@@ -904,6 +938,12 @@ input[type="radio"].visually-hidden {
   overflow: hidden;
 
   transform: translate(102px, 86px);
+}
+
+@media (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+  .placement__img-map-wrapper::after {
+    content: url("../img/map-marker@2x.webp");
+  }
 }
 
 .placement__img-map-wrapper img {

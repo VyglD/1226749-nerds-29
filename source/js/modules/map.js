@@ -20,7 +20,7 @@
         lng: 30.323800,
       },
       map,
-      icon: `img/map-marker.png`,
+      icon: `img/map-marker@1x.webp`,
     });
   };
 
