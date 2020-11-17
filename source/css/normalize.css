@@ -10,6 +10,7 @@
 
 html {
   line-height: 1.15; /* 1 */
+  /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
@@ -62,6 +63,7 @@ hr {
  */
 
 pre {
+  /* stylelint-disable-next-line font-family-no-duplicate-names */
   font-family: monospace, monospace; /* 1 */
   font-size: 1em; /* 2 */
 }
@@ -85,6 +87,7 @@ a {
 abbr[title] {
   border-bottom: none; /* 1 */
   text-decoration: underline; /* 2 */
+  /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
   text-decoration: underline dotted; /* 2 */
 }
 
@@ -105,6 +108,7 @@ strong {
 code,
 kbd,
 samp {
+  /* stylelint-disable-next-line font-family-no-duplicate-names */
   font-family: monospace, monospace; /* 1 */
   font-size: 1em; /* 2 */
 }
@@ -196,6 +200,7 @@ button,
 [type="button"],
 [type="reset"],
 [type="submit"] {
+  /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-appearance: button;
 }
 
@@ -288,6 +293,7 @@ textarea {
  */
 
 [type="search"] {
+  /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-appearance: textfield; /* 1 */
   outline-offset: -2px; /* 2 */
 }
@@ -297,6 +303,7 @@ textarea {
  */
 
 [type="search"]::-webkit-search-decoration {
+  /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-appearance: none;
 }
 
@@ -306,6 +313,7 @@ textarea {
  */
 
 ::-webkit-file-upload-button {
+  /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-appearance: button; /* 1 */
   font: inherit; /* 2 */
 }

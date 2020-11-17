@@ -12,14 +12,19 @@
         "eslint": "7.9.0",
         "eslint-config-htmlacademy": "0.6.0",
         "gulp": "4.0.2",
+        "gulp-clean": "0.4.0",
         "gulp-concat": "2.6.1",
+        "gulp-concat-css": "3.1.0",
+        "gulp-htmlhint": "3.0.1",
+        "gulp-htmlmin": "5.0.1",
+        "gulp-imagemin": "7.1.0",
         "gulp-plumber": "1.2.1",
         "gulp-postcss": "9.0.0",
         "gulp-rename": "2.0.0",
         "gulp-sourcemaps": "2.6.5",
         "gulp-terser": "1.4.0",
         "gulp-w3c-html-validator": "2.0.1",
-        "html-linter": "1.1.1",
+        "gulp-webp": "4.0.1",
         "postcss": "8.1.4",
         "postcss-csso": "5.0.0",
         "stylelint": "13.7.1",
@@ -27,23 +32,21 @@
     },
     "scripts": {
         "editorconfig": "editorconfig-cli",
-        "stylelint": "stylelint \"css/style.css\"",
-        "html-linter": "html-linter --config ./html-linter.json",
+        "stylelint": "stylelint \"source/css/**/*.css\"",
         "start": "gulp start",
         "build": "gulp build",
-        "test": "gulp test && npm run html-linter && npm run stylelint && npm run editorconfig"
+        "test": "gulp test && npm run stylelint && npm run editorconfig"
     },
     "browserslist": [
         "last 2 chrome version",
-        "last 2 firefox version",
-        "last 2 safari version"
+        "last 2 firefox version"
     ],
     "editorconfig-cli": [
         "*.json",
-        "*.html",
-        "js/**/*.js",
-        "css/style.css",
-        "img/**/*.svg"
+        "source/html/**/*.html",
+        "source/js/**/*.js",
+        "source/css/**/*.css",
+        "source/img/**/*.svg"
     ],
     "engines": {
         "node": "10.17"
