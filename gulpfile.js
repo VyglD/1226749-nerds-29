@@ -83,12 +83,12 @@ gulp.task(`formatted-pictures`, () => {
 
 gulp.task(`markup`, () => {
   return gulp.src(`source/html/**/*.html`)
-  .pipe(htmlmin({
-    collapseWhitespace: true,
-    removeComments: true,
-    removeRedundantAttributes: true,
-  }))
-  .pipe(gulp.dest(`build`));
+    .pipe(htmlmin({
+      collapseWhitespace: true,
+      removeComments: true,
+      removeRedundantAttributes: true,
+    }))
+    .pipe(gulp.dest(`build`));
 });
 
 gulp.task(`styles`, () => {
@@ -115,12 +115,14 @@ gulp.task(`styles`, () => {
 });
 
 gulp.task(`scripts`, () => {
-  return gulp.src(`source/js/modules/**/*.js`)
-    .pipe(sourcemap.init())
-    .pipe(concat(`app.min.js`))
-    .pipe(terser())
-    .pipe(sourcemap.write())
-    .pipe(gulp.dest(`build/js/`));
+  return Promise.resolve(
+      gulp.src(`source/js/modules/**/*.js`)
+        .pipe(sourcemap.init())
+        .pipe(concat(`app.min.js`))
+        .pipe(terser())
+        .pipe(sourcemap.write())
+        .pipe(gulp.dest(`build/js/`))
+  ).catch(() => {});
 });
 
 gulp.task(`build`, gulp.series(
