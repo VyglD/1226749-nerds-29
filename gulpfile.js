@@ -9,7 +9,6 @@ const htmlhint = require(`gulp-htmlhint`);
 const htmlValidator = require(`gulp-w3c-html-validator`);
 const htmlmin = require(`gulp-htmlmin`);
 const sourcemap = require(`gulp-sourcemaps`);
-const concatCss = require(`gulp-concat-css`);
 const postcss = require(`gulp-postcss`);
 const autoprefixer = require(`autoprefixer`);
 const csso = require(`postcss-csso`);
@@ -100,7 +99,7 @@ gulp.task(`styles`, () => {
   )
     .pipe(plumber())
     .pipe(sourcemap.init())
-    .pipe(concatCss(`concatStyle.css`))
+    .pipe(concat(`concatStyle.css`))
     .pipe(postcss([
       autoprefixer,
       csso(
