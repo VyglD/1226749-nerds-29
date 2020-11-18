@@ -739,23 +739,22 @@ input[type="radio"].visually-hidden {
 
 .services {
   box-sizing: border-box;
-  width: var(--main-width);
+  width: 100%;
+  max-width: var(--main-width);
   margin: 0 auto;
   padding: 10px var(--main-padding);
 }
 
 .services__list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: space-between;
   margin-top: 70px;
+  margin-right: 60px;
 }
 
 .services__list-item {
   width: 300px;
-}
-
-.services__list-item:not(:nth-child(3n)) {
-  margin-right: 100px;
 }
 
 .services__list-item::before {
@@ -814,6 +813,19 @@ input[type="radio"].visually-hidden {
 
 .services__service-button {
   margin-bottom: 20px;
+}
+
+@media (max-width: 1200px) {
+  .services__list {
+    grid-template-columns: repeat(auto-fill, minmax(322px, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .services__list-item {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 
