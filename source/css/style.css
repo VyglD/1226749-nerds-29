@@ -471,7 +471,9 @@ input[type="radio"].visually-hidden {
 
 
 .main-title {
-  padding: 55px 0 108px;
+  --main-title-padding-top: 55px;
+
+  padding: var(--main-title-padding-top) 0 108px;
 
   background-color: var(--light-gray-1);
 }
@@ -485,6 +487,17 @@ input[type="radio"].visually-hidden {
   text-align: center;
 }
 
+@media (max-width: 1200px) {
+  .main-title {
+    padding-bottom: var(--main-title-padding-top);
+  }
+
+  .main-title h1 {
+    padding: 0 var(--main-padding);
+
+    font-size: 40px;
+  }
+}
 
 /*
 
