@@ -513,16 +513,28 @@ input[type="radio"].visually-hidden {
 }
 
 .principles__slider {
+  position: relative;
+  z-index: 1;
+
   box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 100%;
   max-width: var(--main-width);
   margin: 0 auto;
   padding: 0;
+
+  overflow: hidden;
+}
+
+.principles__slider--no-js {
+  display: block;
 }
 
 .principles__control {
   position: absolute;
   bottom: 96px;
   left: 50%;
+  z-index: 2;
 
   display: flex;
   flex-wrap: wrap;
@@ -575,8 +587,12 @@ input[type="radio"].visually-hidden {
 .principles__slide {
   position: relative;
 
-  display: none;
+  display: block;
+  grid-row: 1;
+  grid-column: 1;
   padding: 10px var(--main-padding);
+
+  transform: translateX(-100%);
 }
 
 .principles__slide::before {
@@ -591,6 +607,7 @@ input[type="radio"].visually-hidden {
   height: 431px;
 
   background-color: var(--transparent);
+  background-position: right bottom;
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -622,11 +639,15 @@ input[type="radio"].visually-hidden {
 }
 
 .principles__slide--active {
-  display: block;
+  transform: translateX(0);
+}
+
+.principles__slide--active .principles__slide-button {
+  visibility: visible;
 }
 
 .principles__slide--no-js {
-  display: block;
+  transform: translateX(0);
 }
 
 .principles__slide-content {
@@ -660,6 +681,52 @@ input[type="radio"].visually-hidden {
   --action-button-padding: 55px;
 
   margin-bottom: 63px;
+
+  visibility: hidden;
+}
+
+.principles__slide-button--no-js {
+  visibility: visible;
+}
+
+@media (max-width: 1200px) {
+  .principles__slide::before {
+    width: 50%;
+  }
+}
+
+@media (max-width: 760px) {
+  .principles__slide::before {
+    display: none;
+  }
+
+  .principles__slide-content {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .principles__slide-title {
+    font-size: 40px;
+    line-height: 45px;
+    text-align: center;
+  }
+
+  .principles__slide-description {
+    font-size: 17px;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  .principles__slide-button {
+    display: block;
+
+    font-size: 13px;
+  }
+
+  .principles__control {
+    bottom: 25px;
+  }
 }
 
 

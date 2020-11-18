@@ -6,6 +6,7 @@
   if (sliderContainer) {
     const SLIDE_ACTIVE_CLASS = `principles__slide--active`;
     const BUTTON_ACTIVE_CLASS = `principles__control-button--active`;
+    const MORE_INFO_BUTTON_CLASS = `principles__slide-button`;
 
     const createElement = (template) => {
       const newElement = document.createElement(`div`);
@@ -51,11 +52,14 @@
 
     slides.forEach((slide, index) => {
       slide.classList.remove(`principles__slide--no-js`);
+      slide.querySelector(`.${MORE_INFO_BUTTON_CLASS}`)
+        .classList.remove(`principles__slide-button--no-js`);
 
       buttonsContainer.append(createSliderButton(slide, index));
     });
 
 
     beforeInsertBlock.after(buttonsContainer);
+    beforeInsertBlock.classList.remove(`principles__slider--no-js`);
   }
 })();
