@@ -843,7 +843,8 @@ input[type="radio"].visually-hidden {
   grid-template-areas:
     "top top"
     "left right";
-  width: var(--main-width);
+  width: 100%;
+  max-width: var(--main-width);
   margin: 43px auto 0;
   padding: 0 var(--main-padding);
 }
@@ -920,11 +921,13 @@ input[type="radio"].visually-hidden {
   content: "";
 
   display: block;
-  width: 360px;
+  width: 100%;
+  max-width: 360px;
   height: 208px;
   margin-top: 9px;
+  margin-left: auto;
+  margin-right: auto;
 
-  background-color: var(--light-gray-1);
   background-image: url("../img/nerds-illustration@1x.webp");
   background-repeat: no-repeat;
   background-size: contain;
@@ -949,7 +952,9 @@ input[type="radio"].visually-hidden {
 .about__properties-list {
   display: flex;
   flex-wrap: wrap;
-  margin: 30px 0 0;
+  justify-content: center;
+  max-width: 360px;
+  margin: 30px auto 0;
 }
 
 .about__properties-list div {
@@ -957,6 +962,7 @@ input[type="radio"].visually-hidden {
   flex-wrap: wrap;
   flex-direction: column-reverse;
   width: 120px;
+  margin-right: auto;
 }
 
 .about__properties-list dt {
@@ -979,6 +985,17 @@ input[type="radio"].visually-hidden {
   font-size: 28px;
   line-height: 40px;
 }
+
+@media (max-width: 1200px) {
+  .about {
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "top top"
+      "left left"
+      "right right";
+  }
+}
+
 
 /*
 
