@@ -471,9 +471,10 @@ input[type="radio"].visually-hidden {
 
 
 .main-title {
-  --main-title-padding-top: 55px;
+  --main-title-padding-top: 56px;
 
   padding: var(--main-title-padding-top) 0 108px;
+  margin-top: -1px;
 
   background-color: var(--light-gray-1);
 }
@@ -1586,7 +1587,8 @@ templates
     "filter sort"
     "filter templates"
     "filter pagination";
-  width: var(--main-width);
+  width: 100%;
+  max-width: var(--main-width);
   margin: 0 auto;
   padding: 10px var(--main-padding);
 }
@@ -1606,6 +1608,19 @@ templates
 
 .templates__pagination {
   grid-area: pagination;
+}
+
+
+@media (max-width: 760px) {
+  .templates {
+    column-gap: 0;
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "filter"
+      "sort"
+      "templates"
+      "pagination";
+  }
 }
 
 
@@ -1831,6 +1846,13 @@ templates
 }
 
 
+@media (max-width: 760px) {
+  .filter-panel {
+    margin: 0 auto;
+  }
+}
+
+
 /*
 
     sort-panel
@@ -1853,6 +1875,10 @@ templates
   font-size: 18px;
   line-height: 30px;
   text-transform: uppercase;
+}
+
+.sort-panel__direction-wrapper {
+  display: flex;
 }
 
 .sort-panel__direction {
@@ -1925,16 +1951,20 @@ templates
 
 
 .templates-list {
+  --templates-list-item-width: 360px;
+
   display: grid;
   column-gap: 40px;
   row-gap: 29px;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(var(--templates-list-item-width), 1fr));
 }
 
 .templates-list__item {
   position: relative;
 
+  max-width: var(--templates-list-item-width);
   min-height: 619px;
+  margin: 0 auto;
 
   border-radius: 5px;
   border: 1px solid var(--black-1-10);
@@ -1966,7 +1996,7 @@ templates
   content: "";
 
   display: block;
-  width: 360px;
+  width: var(--templates-list-item-width);
   height: 40px;
 
   background-color: var(--dark-gray-1);
@@ -2040,14 +2070,27 @@ templates
   line-height: 18px;
   text-align: center;
 
-  overflow-y: overlay;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .templates-list__cost {
   --action-button-padding: 74px;
 
   margin: 32px auto 33px;
+}
+
+@media (max-width: 760px) {
+  .templates-list {
+    --templates-list-item-width: 280px;
+  }
+
+  .templates-list__item {
+    min-height: auto;
+  }
+
+  .templates-list__cost {
+    --action-button-padding: 20px;
+  }
 }
 
 
@@ -2093,6 +2136,11 @@ templates
   --action-button-padding: 78px;
 }
 
+@media (max-width: 760px) {
+  .pagination {
+    justify-content: center;
+  }
+}
 
 /*
 
@@ -2105,6 +2153,7 @@ templates
   display: flex;
   flex-direction: column;
   margin: auto;
+  padding: var(--main-padding);
 }
 
 .blank p,

@@ -91,15 +91,19 @@
         </form>
         <div class="templates__sort-panel sort-panel">
           <p class="sort-panel__title">Сортировать:</p>
-          <button class="sort-panel__type sort-panel__type--active" type="button">По цене</button>
-          <button class="sort-panel__type" type="button">По типу</button>
-          <button class="sort-panel__type" type="button">По названию</button>
-          <button class="sort-panel__direction sort-panel__direction--descending sort-panel__direction--active" type="button">
-            <span class="visually-hidden">По убыванию</span>
-          </button>
-          <button class="sort-panel__direction sort-panel__direction--ascending" type="button">
-            <span class="visually-hidden">По возрастанию</span>
-          </button>
+          <div>
+            <button class="sort-panel__type sort-panel__type--active" type="button">По цене</button>
+            <button class="sort-panel__type" type="button">По типу</button>
+            <button class="sort-panel__type" type="button">По названию</button>
+          </div>
+          <div class="sort-panel__direction-wrapper">
+            <button class="sort-panel__direction sort-panel__direction--descending sort-panel__direction--active" type="button">
+              <span class="visually-hidden">По убыванию</span>
+            </button>
+            <button class="sort-panel__direction sort-panel__direction--ascending" type="button">
+              <span class="visually-hidden">По возрастанию</span>
+            </button>
+          </div>
         </div>
         <ul class="templates__templates-list templates-list list-reset">
           <li class="templates-list__item" tabindex="0">
@@ -174,13 +178,13 @@
             <a class="pagination__page pagination__page--active action-button action-button--gray">1</a>
           </li>
           <li>
-            <a class="pagination__page action-button action-button--gray" href="#">2</a>
+            <a class="pagination__page action-button action-button--gray" href="blank.html">2</a>
           </li>
           <li>
-            <a class="pagination__page action-button action-button--gray" href="#">3</a>
+            <a class="pagination__page action-button action-button--gray" href="blank.html">3</a>
           </li>
           <li>
-            <a class="pagination__page pagination__page--next action-button action-button--gray" href="#">Следующая</a>
+            <a class="pagination__page pagination__page--next action-button action-button--gray" href="blank.html">Следующая</a>
           </li>
         </ul>
       </section>
