@@ -61,6 +61,19 @@
       },
     };
 
+    const InteractProp = {
+      MOUSE: {
+        move: `mousemove`,
+        end: `mouseup`,
+        getMoveCoord: (moveEvt) => moveEvt.x
+      },
+      TOUCH: {
+        move: `touchmove`,
+        end: `touchend`,
+        getMoveCoord: (moveEvt) => moveEvt.touches[0].pageX
+      }
+    };
+
     const getCurrentPropValue = (costObj) => {
       return parseFloat(
           rangeBlock.style.getPropertyValue(costObj.propName).split(`%`)[0]
@@ -74,6 +87,7 @@
         return costObj.limitPropValue;
       }
 
+      costObj.input.value = newCostValue;
       return newCostValue / CostObj.MAX.limitCostValue * CostObj.MAX.limitPropValue;
     };
 
@@ -124,27 +138,32 @@
       }
     };
 
-    const onPointMouseDown = (downEvt) => {
-      const costObj = downEvt.target === CostObj.MIN.point
+    const onPointInteract = (props, startEvt) => {
+      const costObj = startEvt.target === CostObj.MIN.point
         ? CostObj.MIN
         : CostObj.MAX;
       const lineWidth = rangeLine.clientWidth;
       const leftOffset = rangeLine.getBoundingClientRect().left;
 
-      const onMovePoint = (mouseEvt) => {
-        const newPropValue = Math.round((mouseEvt.x - leftOffset) / lineWidth * 100);
+      const onMovePoint = (moveEvt) => {
+        const newPropValue = Math.round(
+            (props.getMoveCoord(moveEvt) - leftOffset) / lineWidth * 100
+        );
 
         changePropValue(costObj, newPropValue);
       };
 
       const onUpPoint = () => {
-        document.removeEventListener(`mousemove`, onMovePoint);
-        document.removeEventListener(`mouseup`, onUpPoint);
+        document.removeEventListener(props.move, onMovePoint);
+        document.removeEventListener(props.end, onUpPoint);
       };
 
-      document.addEventListener(`mousemove`, onMovePoint);
-      document.addEventListener(`mouseup`, onUpPoint);
+      document.addEventListener(props.move, onMovePoint);
+      document.addEventListener(props.end, onUpPoint);
     };
+
+    const onPointMouseDown = onPointInteract.bind(null, InteractProp.MOUSE);
+    const onPointTouch = onPointInteract.bind(null, InteractProp.TOUCH);
 
     const onPointKeyDown = (keyDownEvt) => {
       const costObj = keyDownEvt.target === CostObj.MIN.point
@@ -166,6 +185,9 @@
 
     pointMin.addEventListener(`mousedown`, onPointMouseDown);
     pointMax.addEventListener(`mousedown`, onPointMouseDown);
+
+    pointMin.addEventListener(`touchstart`, onPointTouch);
+    pointMax.addEventListener(`touchstart`, onPointTouch);
 
     pointMin.addEventListener(`keydown`, onPointKeyDown);
     pointMax.addEventListener(`keydown`, onPointKeyDown);
