@@ -1005,7 +1005,8 @@ input[type="radio"].visually-hidden {
 
 
 .partners {
-  width: var(--main-width);
+  width: 100%;
+  max-width: var(--main-width);
   margin: 72px auto 0;
 }
 
@@ -1023,7 +1024,7 @@ input[type="radio"].visually-hidden {
 
 .partners__list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
 .partners__list-item {
