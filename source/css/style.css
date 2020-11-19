@@ -520,8 +520,8 @@ input[type="radio"].visually-hidden {
   display: grid;
   grid-template-columns: 100%;
   max-width: var(--main-width);
-  margin: 0 auto;
-  padding: 0;
+  margin: -1px auto 0;
+  padding: 1px 0 0;
 
   overflow: hidden;
 }
@@ -750,18 +750,19 @@ input[type="radio"].visually-hidden {
   grid-template-columns: repeat(3, auto);
   justify-content: space-between;
   margin-top: 70px;
-  margin-right: 60px;
 }
 
 .services__list-item {
   width: 300px;
+  margin-right: 60px;
 }
 
 .services__list-item::before {
   content: "";
 
   display: block;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   height: 146px;
 
   background-color: var(--light-gray-1);
@@ -817,11 +818,16 @@ input[type="radio"].visually-hidden {
 
 @media (max-width: 1200px) {
   .services__list {
-    grid-template-columns: repeat(auto-fill, minmax(322px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   }
 }
 
 @media (max-width: 760px) {
+  .services {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   .services__list-item {
     margin-left: auto;
     margin-right: auto;
@@ -1325,7 +1331,8 @@ input[type="radio"].visually-hidden {
 
   box-sizing: border-box;
   display: block;
-  width: 960px;
+  width: 90%;
+  max-width: 960px;
   margin: -6px 0 0;
   padding: 50px 100px 85px;
 
@@ -1348,6 +1355,10 @@ input[type="radio"].visually-hidden {
   margin: 0 auto;
 
   transform: none;
+}
+
+.popup--no-js .popup__close-button {
+  display: none;
 }
 
 .popup--opened {
@@ -1524,6 +1535,39 @@ input[type="radio"].visually-hidden {
   60%,
   80% {
     transform: translate(-55%, -50%);
+  }
+}
+
+@media (max-width: 760px) {
+  .popup {
+    padding: var(--main-padding);
+  }
+
+  .popup__title {
+    font-size: 30px;
+  }
+
+  .popup__close-button {
+    top: 46px;
+    right: var(--main-padding);
+  }
+
+  .popup__form {
+    column-gap: 0;
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "name"
+      "email"
+      "textarea"
+      "submit";
+    margin-top: 10px;
+  }
+
+  .popup__submit {
+    --action-button-padding: 70px;
+
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
