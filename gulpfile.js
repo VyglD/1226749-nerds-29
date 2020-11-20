@@ -71,7 +71,12 @@ gulp.task(`clean`, () => {
 });
 
 gulp.task(`copy-static-files`, () => {
-  return copy([`source/fonts/**/*.{woff,woff2}`]);
+  return copy(
+      [
+        `source/fonts/**/*.{woff,woff2}`,
+        `source/favicon.ico`
+      ]
+  );
 });
 
 gulp.task(`minify-pictures`, () => {
