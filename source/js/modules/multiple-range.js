@@ -1,43 +1,31 @@
-'use strict';
+import {KeyCode, createElement} from "./utils";
 
-(() => {
-  const KeyCode = {
-    left: `ArrowLeft`,
-    right: `ArrowRight`,
-  };
+const RANGE_BLOCK_TEMPLATE = (`
+  <div class="filter-panel__cost-range">
+    <div class="filter-panel__cost-range-line">
+      <div
+        class="filter-panel__cost-point filter-panel__cost-point--min"
+        tabindex="0"
+        id="filter-panel__cost-point-min-js"
+        aria-label="Изменить минимальную стоимость"
+      ></div>
+      <div
+        class="filter-panel__cost-point filter-panel__cost-point--max"
+        tabindex="0"
+        id="filter-panel__cost-point-max-js"
+        aria-label="Изменить максимальную стоимость"
+      ></div>
+    </div>
+</div>
+`);
 
+const init = () => {
   const prevElement = document.querySelector(`#filter-panel__cost-title-js`);
   const minCost = document.querySelector(`#cost-min-js`);
   const maxCost = document.querySelector(`#cost-max-js`);
 
-  const createElement = (template) => {
-    const wrapper = document.createElement(`div`);
-    wrapper.innerHTML = template;
-
-    return wrapper.firstElementChild;
-  };
-
   if (prevElement && minCost && maxCost) {
-    const markup = (`
-      <div class="filter-panel__cost-range">
-        <div class="filter-panel__cost-range-line">
-          <div
-            class="filter-panel__cost-point filter-panel__cost-point--min"
-            tabindex="0"
-            id="filter-panel__cost-point-min-js"
-            aria-label="Изменить минимальную стоимость"
-          ></div>
-          <div
-            class="filter-panel__cost-point filter-panel__cost-point--max"
-            tabindex="0"
-            id="filter-panel__cost-point-max-js"
-            aria-label="Изменить максимальную стоимость"
-          ></div>
-        </div>
-      </div>
-    `);
-
-    const rangeBlock = createElement(markup);
+    const rangeBlock = createElement(RANGE_BLOCK_TEMPLATE);
     const rangeLine = rangeBlock.querySelector(`.filter-panel__cost-range-line`);
     const pointMin = rangeBlock.querySelector(`#filter-panel__cost-point-min-js`);
     const pointMax = rangeBlock.querySelector(`#filter-panel__cost-point-max-js`);
@@ -170,9 +158,9 @@
         ? CostObj.MIN
         : CostObj.MAX;
 
-      if (keyDownEvt.code === KeyCode.left) {
+      if (keyDownEvt.code === KeyCode.LEFT) {
         changePropValue(costObj, getCurrentPropValue(costObj) - 1);
-      } else if (keyDownEvt.code === KeyCode.right) {
+      } else if (keyDownEvt.code === KeyCode.RIGHT) {
         changePropValue(costObj, getCurrentPropValue(costObj) + 1);
       }
     };
@@ -194,4 +182,6 @@
 
     prevElement.after(rangeBlock);
   }
-})();
+};
+
+export default {init};

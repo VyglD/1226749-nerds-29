@@ -1,29 +1,23 @@
-'use strict';
+import {createElement} from "./utils";
 
-(() => {
+const BUTTON_OPEN_CLASS = `main-header__toggle-button--opened`;
+const MENU_OPEN_CLASS = `main-header__menu--opened`;
+const BASKET_OPEN_CLASS = `main-header__basket--opened`;
+
+const TOGGLE_BUTTON_TEMPLATE = (`
+  <button class="main-header__toggle-button" type="button">
+    <span>Изменить видимость меню</span>
+  </button>
+`);
+
+const init = () => {
   const container = document.querySelector(`#main-header-js`);
 
   if (container) {
 
-    const BUTTON_OPEN_CLASS = `main-header__toggle-button--opened`;
-    const MENU_OPEN_CLASS = `main-header__menu--opened`;
-    const BASKET_OPEN_CLASS = `main-header__basket--opened`;
-
-    const createElement = (template) => {
-      const newElement = document.createElement(`div`);
-      newElement.innerHTML = template;
-
-      return newElement.firstChild;
-    };
-
     const createToggleButton = () => {
-      const buttonTemplate = (
-        `<button class="main-header__toggle-button" type="button">
-          <span>Изменить видимость меню</span>
-        </button>`
-      );
+      const button = createElement(TOGGLE_BUTTON_TEMPLATE);
 
-      const button = createElement(buttonTemplate);
       button.addEventListener(`click`, () => {
         if (toggleButton.classList.contains(BUTTON_OPEN_CLASS)) {
           toggleButton.classList.remove(BUTTON_OPEN_CLASS);
@@ -45,4 +39,6 @@
 
     container.insertAdjacentElement(`afterBegin`, toggleButton);
   }
-})();
+};
+
+export default {init};

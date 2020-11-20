@@ -1,9 +1,7 @@
-'use strict';
+const ACTIVE_SORT_TYPE_CLASS = `sort-panel__type--active`;
+const ACTIVE_SORT_DIRECTION_CLASS = `sort-panel__direction--active`;
 
-(() => {
-  const ACTIVE_SORT_TYPE_CLASS = `sort-panel__type--active`;
-  const ACTIVE_SORT_DIRECTION_CLASS = `sort-panel__direction--active`;
-
+const init = () => {
   const sortTypeButtons = Array.from(document.querySelectorAll(`.sort-panel__type`));
   const sortDirectionButtons = Array.from(document.querySelectorAll(`.sort-panel__direction`));
 
@@ -29,4 +27,6 @@
 
   sortTypeButtons.forEach((btn) => btn.addEventListener(`click`, onBtnClick));
   sortDirectionButtons.forEach((btn) => btn.addEventListener(`click`, onBtnClick));
-})();
+};
+
+export default {init};

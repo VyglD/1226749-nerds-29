@@ -1,49 +1,45 @@
-'use strict';
+import {createElement} from "./utils";
 
-(() => {
+const SLIDE_ACTIVE_CLASS = `principles__slide--active`;
+const BUTTON_ACTIVE_CLASS = `principles__control-button--active`;
+const MORE_INFO_BUTTON_CLASS = `principles__slide-button`;
+
+const createButtonTemplate = (number) => {
+  return (`
+    <li>
+      <button class="principles__control-button  ${number ? `` : BUTTON_ACTIVE_CLASS}" type="button">
+        <span class="visually-hidden">Принцип ${number + 1}</span>
+      </button>
+    </li>
+  `);
+};
+
+const createSliderButton = (sliderContainer, slide, number) => {
+  const buttonWrapper = createElement(createButtonTemplate(number));
+  buttonWrapper.firstElementChild.addEventListener(`click`, (evt) => {
+    const currentSlide = sliderContainer.querySelector(`.${SLIDE_ACTIVE_CLASS}`);
+
+    if (currentSlide !== slide) {
+      sliderContainer.querySelector(`.${BUTTON_ACTIVE_CLASS}`)
+        .classList.remove(BUTTON_ACTIVE_CLASS);
+      currentSlide.classList.remove(SLIDE_ACTIVE_CLASS);
+
+      slide.classList.add(SLIDE_ACTIVE_CLASS);
+      evt.target.classList.add(BUTTON_ACTIVE_CLASS);
+    }
+  });
+
+  if (!number) {
+    slide.classList.add(SLIDE_ACTIVE_CLASS);
+  }
+
+  return buttonWrapper;
+};
+
+const init = () => {
   const sliderContainer = document.querySelector(`.principles`);
 
   if (sliderContainer) {
-    const SLIDE_ACTIVE_CLASS = `principles__slide--active`;
-    const BUTTON_ACTIVE_CLASS = `principles__control-button--active`;
-    const MORE_INFO_BUTTON_CLASS = `principles__slide-button`;
-
-    const createElement = (template) => {
-      const newElement = document.createElement(`div`);
-      newElement.innerHTML = template;
-
-      return newElement.firstChild;
-    };
-
-    const createSliderButton = (slide, number) => {
-      const buttonTemplate = (
-        `<li>
-          <button class="principles__control-button  ${number ? `` : BUTTON_ACTIVE_CLASS}" type="button">
-            <span class="visually-hidden">Принцип ${number + 1}</span>
-          </button>
-        </li>`
-      );
-
-      const buttonWrapper = createElement(buttonTemplate);
-      buttonWrapper.firstElementChild.addEventListener(`click`, (evt) => {
-        const currentSlide = sliderContainer.querySelector(`.${SLIDE_ACTIVE_CLASS}`);
-
-        if (currentSlide !== slide) {
-          sliderContainer.querySelector(`.${BUTTON_ACTIVE_CLASS}`)
-            .classList.remove(BUTTON_ACTIVE_CLASS);
-          currentSlide.classList.remove(SLIDE_ACTIVE_CLASS);
-
-          slide.classList.add(SLIDE_ACTIVE_CLASS);
-          evt.target.classList.add(BUTTON_ACTIVE_CLASS);
-        }
-      });
-
-      if (!number) {
-        slide.classList.add(SLIDE_ACTIVE_CLASS);
-      }
-
-      return buttonWrapper;
-    };
 
     const beforeInsertBlock = sliderContainer.querySelector(`#principles__slider-js`);
     const slides = sliderContainer.querySelectorAll(`.principles__slide`);
@@ -55,11 +51,12 @@
       slide.querySelector(`.${MORE_INFO_BUTTON_CLASS}`)
         .classList.remove(`principles__slide-button--no-js`);
 
-      buttonsContainer.append(createSliderButton(slide, index));
+      buttonsContainer.append(createSliderButton(sliderContainer, slide, index));
     });
-
 
     beforeInsertBlock.after(buttonsContainer);
     beforeInsertBlock.classList.remove(`principles__slider--no-js`);
   }
-})();
+};
+
+export default {init};

@@ -1,15 +1,21 @@
-'use strict';
+import {isEscKey} from "./utils";
 
-(() => {
-  const OPENED_CLASS = `popup--opened`;
-  const NO_JS_CLASS = `popup--no-js`;
-  const ERROR_SUBMIT_CLASS = `popup--error`;
-  const ERROR_INPUT_CLASS = `popup__input--error`;
-  const ERROR_MESSAGE = `Обязательное поле для заполнения`;
-  const URL = `https://echo.htmlacademy.ru/`;
+const OPENED_CLASS = `popup--opened`;
+const NO_JS_CLASS = `popup--no-js`;
+const ERROR_SUBMIT_CLASS = `popup--error`;
+const ERROR_INPUT_CLASS = `popup__input--error`;
+const ERROR_MESSAGE = `Обязательное поле для заполнения`;
+const URL = `https://echo.htmlacademy.ru/`;
 
+const LocalStorageName = {
+  NAME: `userName`,
+  EMAIL: `userEmail`,
+};
+
+const init = () => {
   const openPopupBtn = document.querySelector(`#placement__description-button-js`);
   const popup = document.querySelector(`#popup-js`);
+
   if (openPopupBtn && popup) {
     const popupForm = popup.querySelector(`#popup__form-js`);
     const closePopupBtn = popup.querySelector(`#popup__close-button-js`);
@@ -18,13 +24,8 @@
     const emailInput = popup.querySelector(`#popup-field-email-js`);
     const letterTextarea = popup.querySelector(`#popup-field-letter-js`);
 
-    const LocalStorageKey = {
-      NAME: `userName`,
-      EMAIL: `userEmail`,
-    };
-
     const onEscKeyDown = (evt) => {
-      if (evt.code === `Escape`) {
+      if (isEscKey(evt)) {
         closePopup();
       }
     };
@@ -34,8 +35,8 @@
 
       popup.classList.add(OPENED_CLASS);
 
-      nameInput.value = localStorage.getItem(LocalStorageKey.NAME);
-      emailInput.value = localStorage.getItem(LocalStorageKey.EMAIL);
+      nameInput.value = localStorage.getItem(LocalStorageName.NAME);
+      emailInput.value = localStorage.getItem(LocalStorageName.EMAIL);
 
       closePopupBtn.addEventListener(`click`, closePopup);
       submitPopupFormBtn.addEventListener(`click`, submitForm);
@@ -88,8 +89,8 @@
               throw new Error(`_${response.status}: ${response.statusText}`);
             }
 
-            localStorage.setItem(LocalStorageKey.NAME, nameInput.value);
-            localStorage.setItem(LocalStorageKey.EMAIL, emailInput.value);
+            localStorage.setItem(LocalStorageName.NAME, nameInput.value);
+            localStorage.setItem(LocalStorageName.EMAIL, emailInput.value);
 
             clearPopup();
             closePopup();
@@ -139,4 +140,6 @@
       letterTextarea.required = false;
     }
   }
-})();
+};
+
+export default {init};

@@ -4,9 +4,15 @@
     "private": true,
     "description": "Личный проект «Nerds» от HTML Academy",
     "devDependencies": {
+        "@babel/core": "7.12.3",
+        "@babel/preset-env": "7.12.1",
+        "@babel/preset-react": "7.12.5",
         "@htmlacademy/editorconfig-cli": "1.0.0",
         "autoprefixer": "10.0.1",
+        "babelify": "10.0.0",
+        "browserify": "17.0.0",
         "browserslist": "4.14.3",
+        "core-js": "3.7.0",
         "editorconfig": "0.15.3",
         "eslint": "7.9.0",
         "eslint-config-htmlacademy": "0.6.0",
@@ -27,7 +33,9 @@
         "postcss": "8.1.4",
         "postcss-csso": "5.0.0",
         "stylelint": "13.7.1",
-        "stylelint-config-htmlacademy": "0.1.4"
+        "stylelint-config-htmlacademy": "0.1.4",
+        "vinyl-buffer": "1.0.1",
+        "vinyl-source-stream": "2.0.0"
     },
     "scripts": {
         "editorconfig": "editorconfig-cli",

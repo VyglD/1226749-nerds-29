@@ -1,5 +1,3 @@
-'use strict';
-
 const gulp = require(`gulp`);
 const plumber = require(`gulp-plumber`);
 const clean = require(`gulp-clean`);
@@ -13,7 +11,11 @@ const postcss = require(`gulp-postcss`);
 const autoprefixer = require(`autoprefixer`);
 const csso = require(`postcss-csso`);
 const rename = require(`gulp-rename`);
+const browserify = require(`browserify`);
+const babelify = require(`babelify`);
 const terser = require(`gulp-terser`);
+const source = require(`vinyl-source-stream`);
+const buffer = require(`vinyl-buffer`);
 const concat = require(`gulp-concat`);
 const server = require(`gulp-server-livereload`);
 
@@ -115,10 +117,17 @@ gulp.task(`styles`, () => {
 
 gulp.task(`scripts`, () => {
   return Promise.resolve(
-      gulp.src(`source/js/modules/**/*.js`)
-        .pipe(sourcemap.init())
-        .pipe(concat(`app.min.js`))
+      browserify({
+        entries: `source/js/index.js`,
+        debug: true
+      })
+        .transform(babelify)
+        .bundle()
+        .pipe(source(`bundle.js`))
+        .pipe(buffer())
+        .pipe(sourcemap.init({loadMaps: true}))
         .pipe(terser())
+        .pipe(rename(`app.min.js`))
         .pipe(sourcemap.write())
         .pipe(gulp.dest(`build/js/`))
   ).catch(() => {});
