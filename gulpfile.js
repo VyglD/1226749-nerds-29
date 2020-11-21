@@ -17,7 +17,9 @@ const terser = require(`gulp-terser`);
 const source = require(`vinyl-source-stream`);
 const buffer = require(`vinyl-buffer`);
 const concat = require(`gulp-concat`);
-const server = require(`gulp-server-livereload`);
+const argv = require(`yargs`).argv;
+const gulpif = require(`gulp-if`);
+const server = require(`browser-sync`).create();
 
 const copy = (paths) => {
   return gulp.src(paths, {base: `source/`})
@@ -26,17 +28,24 @@ const copy = (paths) => {
 
 const minifyPictures = (paths) => {
   return gulp.src(paths, {base: `source/`})
-    .pipe(imagemin([
-      imagemin.mozjpeg({progressive: true}),
-      imagemin.optipng({optimizationLevel: 3}),
-      imagemin.svgo({plugins: [{removeViewBox: false}]})
-    ]))
+    .pipe(
+        gulpif(
+            argv.production,
+            imagemin([
+              imagemin.mozjpeg({progressive: true}),
+              imagemin.optipng({optimizationLevel: 3}),
+              imagemin.svgo({plugins: [{removeViewBox: false}]})
+            ])
+        )
+    )
     .pipe(gulp.dest(`build/`));
 };
 
 const formattedPictures = (paths) => {
+  const method = argv.production ? 6 : 0;
+
   return gulp.src(paths, {base: `source/`})
-    .pipe(webp({method: 6}))
+    .pipe(webp({method}))
     .pipe(gulp.dest(`build/`));
 };
 
@@ -89,15 +98,22 @@ gulp.task(`formatted-pictures`, () => {
 
 gulp.task(`markup`, () => {
   return gulp.src(`source/html/**/*.html`)
-    .pipe(htmlmin({
-      collapseWhitespace: true,
-      removeComments: true,
-      removeRedundantAttributes: true,
-    }))
-    .pipe(gulp.dest(`build`));
+    .pipe(
+        gulpif(
+            argv.production,
+            htmlmin({
+              collapseWhitespace: true,
+              removeComments: true,
+              removeRedundantAttributes: true,
+            })
+        )
+    )
+    .pipe(gulp.dest(`build/`));
 });
 
 gulp.task(`styles`, () => {
+  const isProd = Boolean(argv.production);
+
   return gulp.src(
       [
         `source/css/normalize.css`,
@@ -105,8 +121,13 @@ gulp.task(`styles`, () => {
       ]
   )
     .pipe(plumber())
-    .pipe(sourcemap.init())
-    .pipe(concat(`concatStyle.css`))
+    .pipe(
+        gulpif(
+            !isProd,
+            sourcemap.init()
+        )
+    )
+    .pipe(concat(`concat-style.css`))
     .pipe(postcss([
       autoprefixer,
       csso(
@@ -116,24 +137,46 @@ gulp.task(`styles`, () => {
       )
     ]))
     .pipe(rename(`style.min.css`))
-    .pipe(sourcemap.write(`.`))
+    .pipe(
+        gulpif(
+            !isProd,
+            sourcemap.write()
+        )
+    )
     .pipe(gulp.dest(`build/css/`));
 });
 
 gulp.task(`scripts`, () => {
+  const isProd = Boolean(argv.production);
+
   return Promise.resolve(
       browserify({
         entries: `source/js/index.js`,
-        debug: true
+        debug: !isProd
       })
         .transform(babelify)
         .bundle()
         .pipe(source(`bundle.js`))
         .pipe(buffer())
-        .pipe(sourcemap.init({loadMaps: true}))
-        .pipe(terser())
+        .pipe(
+            gulpif(
+                !isProd,
+                sourcemap.init({loadMaps: true})
+            )
+        )
+        .pipe(
+            gulpif(
+                isProd,
+                terser()
+            )
+        )
         .pipe(rename(`app.min.js`))
-        .pipe(sourcemap.write())
+        .pipe(
+            gulpif(
+                !isProd,
+                sourcemap.write()
+            )
+        )
         .pipe(gulp.dest(`build/js/`))
   ).catch(() => {});
 });
@@ -148,20 +191,36 @@ gulp.task(`build`, gulp.series(
     `scripts`
 ));
 
-gulp.task(`webserver`, () => {
-  gulp.src(`build/`)
-    .pipe(server({
-      livereload: true,
-      port: 9999,
-      open: true,
-    }));
-
-  gulp.watch(`source/html/*.html`, gulp.series(`markup`));
-  gulp.watch(`source/css/**/*.css`, gulp.series(`styles`));
-  gulp.watch(`source/js/**/*.js`, gulp.series(`scripts`));
-  gulp.watch(`source/img/**/*.{png,jpg}`).on(`add`, addNewImg);
-  gulp.watch(`source/img/**/*.webp`).on(`add`, addNewWebp);
-  gulp.watch(`source/img/**/*.svg`).on(`add`, addNewSvg);
+gulp.task(`refresh`, () => {
+  server.reload();
 });
 
-gulp.task(`start`, gulp.series(`build`, `webserver`));
+gulp.task(`server`, () => {
+  server.init({
+    server: {
+      baseDir: `build/`
+    }
+  });
+
+  gulp.watch(`source/html/*.html`).on(`all`, gulp.series(`markup`, `refresh`));
+  gulp.watch(`source/css/**/*.css`).on(`all`, gulp.series(`styles`, `refresh`));
+  gulp.watch(`source/js/**/*.js`).on(`all`, gulp.series(`scripts`, `refresh`));
+  gulp.watch(`source/img/**/*.{png,jpg}`).on(`add`, (args) => {
+    addNewImg(args);
+    server.reload();
+  });
+  gulp.watch(`source/img/**/*.webp`).on(`add`, (args) => {
+    addNewWebp(args);
+    server.reload();
+  });
+  gulp.watch(`source/img/**/*.svg`).on(`add`, (args) => {
+    addNewSvg(args);
+    server.reload();
+  });
+  gulp.watch(`source/img/**/*.svg`).on(`change`, (args) => {
+    copy(args);
+    server.reload();
+  });
+});
+
+gulp.task(`start`, gulp.series(`build`, `server`));
